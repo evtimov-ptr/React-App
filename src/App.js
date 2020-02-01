@@ -2,24 +2,33 @@ import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person';
 import Button from '@material-ui/core/Button';
-
+import Gen from './StringGenerator/gen';
 class App extends Component {
   state = {
     persons: [
-       { name: 'Evtim', age: 21},
-       { name: 'Burov', age: 20}
+       { id: 'ars8Kgx4T8dL7KM', name: 'Evtim', age: 21},
+       { id: 'xSbPDv7nIIRkUai', name: 'Burov', age: 20}
     ],
     otherState: 'test',
     showPersons: false
   };
 
-   nameChangedHandler = (event) => {
-    this.setState({
-      persons: [
-      { name: 'Evtim', age: 21},
-      { name: event.target.value, age: 20}
-      ]
-     });
+   nameChangedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+
+    });
+
+    const person = Object.assign({}, this.state.persons[personIndex]);
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+
+    persons[personIndex] = person;
+
+
+    this.setState({ persons: persons });
    }
 
    deletePersonHandler = (personIndex) => {
@@ -27,6 +36,11 @@ class App extends Component {
     const persons = [...this.state.persons]; //equivalent of the slice approach
     persons.splice(personIndex, 1);
     this.setState({persons: persons})
+   }
+   
+    genRand = () => {
+     let _result = Gen(15);
+     console.log(_result);
    }
 
    togglePersonsHandler = () => {
@@ -44,7 +58,9 @@ class App extends Component {
     return <Person 
     click={() => this.deletePersonHandler(index)}
     name={person.name} 
-    age={person.age} />
+    age={person.age}
+    key={person.id}
+    changed={(event) => this.nameChangedHandler(event, person.id)} />
   })}
    </div> 
       );
