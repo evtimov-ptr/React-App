@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Button from '@material-ui/core/Button';
 import Gen from './StringGenerator/gen';
 class App extends Component {
   state = {
     persons: [
        { id: 'ars8Kgx4T8dL7KM', name: 'Evtim', age: 21},
-       { id: 'xSbPDv7nIIRkUai', name: 'Burov', age: 20}
+       { id: 'xSbPDv7nIIRkUai', name: 'Burov', age: 20},
+       { id: '2SASDv4nRuRkU2y', name: 'Stephanie', age: 26}
     ],
     otherState: 'test',
     showPersons: false
@@ -48,7 +48,14 @@ class App extends Component {
     this.setState({showPersons: !doesShow});
    }
    render() {
-
+    const style = {
+      backgroundColor: 'green',
+      color: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
     let persons = null;
 
     if (this.state.showPersons) {
@@ -64,12 +71,25 @@ class App extends Component {
   })}
    </div> 
       );
+
+      style.backgroundColor = 'red';
+    }
+
+    const classes = [];
+
+    if (this.state.persons.length <= 2){
+      classes.push('red');
+    }
+    if (this.state.persons.length <= 1){
+      classes.push('bold');
     }
 
     return (
       <div className="App">
-      <h1>Hi, welcome to my website!</h1>
-      <Button variant="outlined" onClick={this.togglePersonsHandler}>Show Info</Button>
+      <h1>Hi, welcome to my website</h1>
+      <p className={classes.join(' ')}>This is really working!</p>
+      <button style={style}
+       onClick={this.togglePersonsHandler}>Show Info</button>
       {persons}
        
    </div>
