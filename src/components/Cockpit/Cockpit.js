@@ -1,6 +1,6 @@
 import React from 'react';
+import './Cockpit.css';
 
-import  './Cockpit.css';
 
 const cockpit = (props) => {
     const assignedClasses = [];
@@ -17,9 +17,10 @@ const cockpit = (props) => {
       assignedClasses.push("bold");
     }
 
+
     return (
         <div className="Cockpit">
-            <h1>Hi, welcome to my website</h1>
+            <h1>Person Manager</h1>
             <p className={assignedClasses.join(' ')}>This is really working!</p>
             <button className={btnClass}
             onClick={props.clicked}>Toggle Info</button>
